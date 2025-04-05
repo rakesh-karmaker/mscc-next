@@ -1,0 +1,38 @@
+type MembersSubmissions {
+    id     String @map("_id") @db.ObjectId
+    taskId String @db.ObjectId
+}
+
+type MembersTimeline {
+    id          String  @map("_id") @db.ObjectId
+    date        String
+    description String
+    link        String
+    tag         String
+    taskId      String? @db.ObjectId
+    title       String
+}
+
+model members {
+    id            String               @id @default(auto()) @map("_id") @db.ObjectId
+    v             Int                  @map("__v")
+    batch         String
+    branch        String
+    contactNumber String?
+    createdAt     DateTime             @db.Date
+    email         String               @unique(map: "email_1")
+    image         String
+    imgId         String
+    name          String
+    new           Boolean
+    password      String
+    position      String
+    reason        String
+    reference     String
+    role          String
+    slug          String
+    socialLink    String
+    submissions   MembersSubmissions[]
+    timeline      MembersTimeline[]
+    updatedAt     DateTime             @db.Date
+}

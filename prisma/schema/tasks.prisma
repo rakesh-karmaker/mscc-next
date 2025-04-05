@@ -1,0 +1,31 @@
+type TasksSubmissions {
+    id             String   @map("_id") @db.ObjectId
+    answer         String
+    batch          String?
+    branch         String?
+    email          String?
+    image          String?
+    name           String?
+    poster         String?
+    posterId       String?
+    submissionDate DateTime @db.Date
+    username       String
+}
+
+model tasks {
+    id            String             @id @default(auto()) @map("_id") @db.ObjectId
+    v             Int                @map("__v")
+    category      String
+    createdAt     DateTime           @db.Date
+    deadline      DateTime           @db.Date
+    first         String?
+    second        String?
+    third         String?
+    imageRequired Boolean
+    instructions  String
+    name          String
+    slug          String
+    submissions   TasksSubmissions[]
+    summary       String
+    updatedAt     DateTime           @db.Date
+}

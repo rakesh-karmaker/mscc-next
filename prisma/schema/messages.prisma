@@ -1,0 +1,11 @@
+model messages {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    v         Int      @map("__v")
+    createdAt DateTime @db.Date
+    email     String
+    message   String
+    name      String
+    new       Boolean
+    subject   String
+    updatedAt DateTime @db.Date
+}

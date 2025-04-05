@@ -1,0 +1,9 @@
+model resetotps {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    v         Int      @map("__v")
+    createdAt DateTime @db.Date
+    email     String   @unique(map: "email_1")
+    expiresAt DateTime @db.Date
+    opt       String
+    token     String?
+}

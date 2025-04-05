@@ -1,0 +1,21 @@
+type ActivitiesGallery {
+    id    String @map("_id") @db.ObjectId
+    imgId String
+    url   String
+}
+
+model activities {
+    id            String              @id @default(auto()) @map("_id") @db.ObjectId
+    v             Int                 @map("__v")
+    content       String
+    coverImageId  String
+    coverImageUrl String
+    createdAt     DateTime            @db.Date
+    date          String
+    gallery       ActivitiesGallery[]
+    slug          String
+    summary       String
+    tag           String
+    title         String
+    updatedAt     DateTime            @db.Date
+}
