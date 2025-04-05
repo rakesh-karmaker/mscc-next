@@ -10,6 +10,8 @@ interface MemberContextType {
   response: {
     results: RequestedMembers[];
     selectedLength: number;
+    adminLength: number;
+    totalLength: number;
   } | null;
   members: RequestedMembers[] | null;
   isLoading: boolean;
@@ -63,7 +65,7 @@ const MemberProvider = ({
   const members = data?.data?.results ?? null;
   const length = data?.data?.selectedLength || 0;
 
-  console.log(data);
+  console.log(response);
 
   return (
     <MemberContext.Provider

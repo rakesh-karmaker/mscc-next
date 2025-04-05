@@ -49,8 +49,6 @@ export async function GET(request: NextRequest) {
       where: { role: "admin" },
     });
 
-    console.log(members);
-
     return NextResponse.json(members);
   } catch (err) {
     console.log("Error fetching all members - ", getDate(), "\n---\n", err);

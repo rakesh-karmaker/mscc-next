@@ -1,6 +1,6 @@
 @charset "UTF-8";
-@import "tailwindcss";
 @import url("./fonts.css");
+@import "tailwindcss";
 
 * {
   margin: 0;

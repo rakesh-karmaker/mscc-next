@@ -1,8 +1,11 @@
 import type {
   RequestAllActivitiesFunctionType,
   RequestAllMembersFunctionType,
+  RequestAllMessagesFunctionType,
+  RequestAllTasksFunctionType,
   RequestedActivity,
   RequestedArticlesOrEvents,
+  RequestedTask,
   RequestedTopSubmitter,
   RequestedUser,
 } from "@/types/getServiceTypes";
@@ -91,48 +94,38 @@ const getArticles = (): Promise<{ data: RequestedArticlesOrEvents[] }> => {
   return api.get("/activity/articles");
 };
 
-// TODO: make the bottom routes and change the types
-type Task = {
-  id: string;
-  name: string;
-  category: string;
-};
+//* All tasks related server requests
 
-type getAllTasksType = (
-  page: number,
-  limit: number,
-  search: string,
-  category: string
-) => Promise<{
-  data: { results: Task[]; totalLength: number; selectedLength: number };
-}>;
-const getAllTasks: getAllTasksType = async (page, limit, search, category) => {
+const getAllTasks: RequestAllTasksFunctionType = async (
+  page,
+  limit,
+  search,
+  category
+) => {
   const response = await api.get(
-    `/task?page=${page}&limit=${limit}&name=${search}&category=${category}`
+    `/task/all?page=${page}&limit=${limit}&name=${search}&category=${category}`
   );
   return response;
 };
 
-type getTaskType = (slug: string, username: string) => Promise<{ data: Task }>;
+type getTaskType = (
+  slug: string,
+  username: string
+) => Promise<{ data: RequestedTask }>;
 const getTask: getTaskType = async (slug, username) => {
   const response = await api.get(`/task/${slug}?username=${username}`);
   return response;
 };
 
-type Message = {
-  id: string;
-  content: string;
-  sender: string;
-};
+//* All messages related server requests
 
-type getAllMessagesType = (
-  page: number,
-  limit: number,
-  search: string
-) => Promise<{ data: { results: Message[]; totalLength: number } }>;
-const getAllMessages: getAllMessagesType = async (page, limit, search) => {
+const getAllMessages: RequestAllMessagesFunctionType = async (
+  page,
+  limit,
+  search
+) => {
   const response = await api.get(
-    `/message?page=${page}&limit=${limit}&name=${search}`
+    `/message/all?page=${page}&limit=${limit}&name=${search}`
   );
   return response;
 };
