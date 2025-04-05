@@ -1,10 +1,8 @@
 import type {
   RequestAllActivitiesFunctionType,
   RequestAllMembersFunctionType,
-  RequestedActivities,
   RequestedActivity,
   RequestedArticlesOrEvents,
-  RequestedMembers,
   RequestedTopSubmitter,
   RequestedUser,
 } from "@/types/getServiceTypes";
