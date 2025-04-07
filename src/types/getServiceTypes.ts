@@ -7,6 +7,7 @@ export type RequestedMembers = {
   name: string;
   image: string;
   position: string;
+  role: string;
   slug: string;
   new: boolean;
 };
@@ -89,13 +90,13 @@ export type RequestedActivity = {
   gallery: { id: string; imgId: string; url: string }[];
 };
 
-export type RequestedArticlesOrEvents = {
+export type RequestedArticlesAndEvents = {
   id: string;
   title: string;
   slug: string;
   summary: string;
   coverImageUrl: string;
-  date: Date;
+  date: Date | string;
   tag: string;
 };
 

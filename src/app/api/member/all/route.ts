@@ -32,6 +32,7 @@ export async function GET(request: NextRequest) {
     name: true,
     image: true,
     position: true,
+    role: true,
     slug: true,
     new: true,
   };

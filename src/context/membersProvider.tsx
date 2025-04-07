@@ -65,8 +65,6 @@ const MemberProvider = ({
   const members = data?.data?.results ?? null;
   const length = data?.data?.selectedLength || 0;
 
-  console.log(response);
-
   return (
     <MemberContext.Provider
       value={{

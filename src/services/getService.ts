@@ -4,16 +4,23 @@ import type {
   RequestAllMessagesFunctionType,
   RequestAllTasksFunctionType,
   RequestedActivity,
-  RequestedArticlesOrEvents,
+  RequestedArticlesAndEvents,
   RequestedTask,
   RequestedTopSubmitter,
   RequestedUser,
 } from "@/types/getServiceTypes";
 import axios from "axios";
 
+if (!process.env.NEXT_PUBLIC_INTERNAL_TOKEN) {
+  throw new Error("NEXT_PUBLIC_INTERNAL_TOKEN is not defined");
+}
+
 const api = axios.create({
   baseURL: `/api`,
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+    "x-internal-token": process.env.NEXT_PUBLIC_INTERNAL_TOKEN,
+  },
 });
 
 // Add a request interceptor to dynamically set the Authorization header
@@ -86,12 +93,13 @@ const getActivity: getActivityType = async (slug) => {
   return response;
 };
 
-const getEvents = (): Promise<{ data: RequestedArticlesOrEvents[] }> => {
-  return api.get("/activity/events");
-};
-
-const getArticles = (): Promise<{ data: RequestedArticlesOrEvents[] }> => {
-  return api.get("/activity/articles");
+const getContent = (): Promise<{
+  data: {
+    articles: RequestedArticlesAndEvents[];
+    events: RequestedArticlesAndEvents[];
+  };
+}> => {
+  return api.get("/activity/content");
 };
 
 //* All tasks related server requests
@@ -137,8 +145,7 @@ export {
   getTopSubmitters,
   getAllMessages,
   getAllActivities,
-  getEvents,
-  getArticles,
+  getContent,
   getAllTasks,
   getTask,
   getActivity,

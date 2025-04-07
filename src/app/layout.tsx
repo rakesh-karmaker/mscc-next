@@ -3,10 +3,11 @@ import "./globals.css";
 import { MemberProvider } from "@/context/membersProvider";
 import QueryProvider from "@/context/queryProvider";
 import { Toaster } from "react-hot-toast";
-import { ActivitiesProvider } from "@/context/avtivitiesProvider";
+import { ActivitiesProvider } from "@/context/activitiesProvider";
+import { TaskProvider } from "@/context/taskProvider";
+import Footer from "@/layouts/Footer/Footer";
 
 export const metadata: Metadata = {
-  title: "MSCSC - Monipur School and College Science Club",
   authors: [{ name: "Rakesh Karmaker" }],
   description:
     "MSCSC is the ideal place for Math, Science, Biology, IT, and Astronomy enthusiasts, offering top-notch learning, hands-on experiences, and expert guidance",
@@ -32,10 +33,8 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: "MSCSC",
     type: "website",
-    title: "MSCSC - Monipur High School and College Science Club",
     description:
       "MSCSC is the ideal place for Math, Science, Biology, IT, and Astronomy enthusiasts, offering top-notch learning, hands-on experiences, and expert guidance",
-    url: "https://mscsc.netlify.app/",
     images: [
       {
         url: "https://mscsc.netlify.app/link-img.jpg",
@@ -48,12 +47,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "MSCSC - Monipur High School and College Science Club",
     description:
       "MSCSC is the ideal place for Math, Science, Biology, IT, and Astronomy enthusiasts, offering top-notch learning, hands-on experiences, and expert guidance",
     creator: "Rakesh Karmaker",
     images: ["https://mscsc.netlify.app/link-img.jpg"],
-    site: "https://mscsc.netlify.app/",
   },
 };
 
@@ -67,7 +64,9 @@ export default function RootLayout({
       <body className={`antialiased`}>
         <QueryProvider>
           <ActivitiesProvider>
-            <MemberProvider>{children}</MemberProvider>
+            <TaskProvider>
+              <MemberProvider>{children}</MemberProvider>
+            </TaskProvider>
           </ActivitiesProvider>
         </QueryProvider>
         <Toaster position="top-right" reverseOrder={false} />

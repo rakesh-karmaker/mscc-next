@@ -24,12 +24,12 @@ model members {
     image         String
     imgId         String
     name          String
-    new           Boolean
+    new           Boolean              @default(true)
     password      String
-    position      String
+    position      String               @default("member")
     reason        String
     reference     String
-    role          String
+    role          String               @default("member")
     slug          String
     socialLink    String
     submissions   MembersSubmissions[]
