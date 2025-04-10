@@ -22,11 +22,13 @@
     "@types/nodemailer": "^6.4.17",
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
+    "dayjs": "^1.11.13",
     "gsap": "^3.12.7",
     "imagekit": "^6.0.0",
     "joi": "^17.13.3",
     "jose": "^6.0.10",
     "jsonwebtoken": "^9.0.2",
+    "katex": "^0.16.22",
     "mongoose": "^8.13.2",
     "mui": "^0.0.1",
     "multer": "^1.4.5-lts.2",
@@ -40,6 +42,7 @@
     "react-lazy-load-image-component": "^1.6.3",
     "sharp": "^0.34.0",
     "swiper": "^11.2.6",
+    "yet-another-react-lightbox": "^3.22.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {

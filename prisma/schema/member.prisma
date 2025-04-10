@@ -9,7 +9,6 @@ type MembersTimeline {
     description String
     link        String
     tag         String
-    taskId      String? @db.ObjectId
     title       String
 }
 
@@ -34,5 +33,5 @@ model members {
     socialLink    String
     submissions   MembersSubmissions[]
     timeline      MembersTimeline[]
-    updatedAt     DateTime             @db.Date
+    updatedAt     DateTime             @db.Date @updatedAt @default(now())
 }

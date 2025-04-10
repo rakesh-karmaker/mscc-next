@@ -93,7 +93,7 @@ const useMember = () => {
   const context = useContext(MemberContext);
 
   if (context === undefined) {
-    throw new Error("useAuth must be used within a AuthProvider");
+    throw new Error("useMember must be used within a MemberProvider");
   }
 
   return context;

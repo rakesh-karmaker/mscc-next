@@ -5,7 +5,8 @@ import QueryProvider from "@/context/queryProvider";
 import { Toaster } from "react-hot-toast";
 import { ActivitiesProvider } from "@/context/activitiesProvider";
 import { TaskProvider } from "@/context/taskProvider";
-import Footer from "@/layouts/Footer/Footer";
+import { getCurrentUser } from "@/lib/getCurrentUser";
+import { UserProvider } from "@/context/userProvider";
 
 export const metadata: Metadata = {
   authors: [{ name: "Rakesh Karmaker" }],
@@ -54,20 +55,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getCurrentUser();
+  
   return (
     <html lang="en">
       <body className={`antialiased`}>
         <QueryProvider>
+          <UserProvider user={user}>
           <ActivitiesProvider>
             <TaskProvider>
               <MemberProvider>{children}</MemberProvider>
             </TaskProvider>
           </ActivitiesProvider>
+          </UserProvider>
         </QueryProvider>
         <Toaster position="top-right" reverseOrder={false} />
       </body>

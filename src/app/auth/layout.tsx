@@ -6,7 +6,6 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // TODO: add a check to see if the user is logged in and redirect them to the dashboard
 
   return (
     <>

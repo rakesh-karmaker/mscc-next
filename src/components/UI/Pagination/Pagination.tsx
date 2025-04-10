@@ -5,7 +5,7 @@ import Pagination from "@mui/material/Pagination";
 type PaginatedContainerProps = {
   length: number;
   elementsPerPage: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPage: React.Dispatch<React.SetStateAction<number>> | ((page: number) => void);
   currentPage: number;
 };
 
@@ -15,6 +15,7 @@ const PaginationContainer = ({
   setPage,
   currentPage,
 }: PaginatedContainerProps) => {
+  console.log(length)
   const pages = [];
   for (let i = 1; i <= Math.ceil(length / elementsPerPage); i++) {
     pages.push(i);

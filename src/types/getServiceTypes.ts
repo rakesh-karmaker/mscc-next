@@ -28,19 +28,30 @@ export type RequestAllMembersFunctionType = (
   };
 }>;
 
+export type TimeLineType = {
+  title: string;
+  description: string;
+  date: Date | string;
+  id: string;
+  tag: string;
+  link: string;
+};
+
 export type RequestedUser = {
   id: string;
   slug: string;
   name: string;
   email: string;
   role: string;
+  contactNumber?: string | null | undefined | "";
   batch: string;
   branch: string;
   position: string;
   image: string;
-  timeline: string[];
+  timeline: TimeLineType[];
   createdAt: Date;
   socialLink: string;
+  reason: string;
 };
 
 export type RequestedTopSubmitter = {
@@ -59,7 +70,7 @@ export type RequestedActivities = {
   id: string;
   slug: string;
   coverImageUrl: string;
-  date: Date;
+  date: Date | string;
   summary: string;
   title: string;
   tag: string;
@@ -84,7 +95,7 @@ export type RequestedActivity = {
   title: string;
   summary: string;
   coverImageUrl: string;
-  date: Date;
+  date: Date | string;
   tag: string;
   content: string;
   gallery: { id: string; imgId: string; url: string }[];

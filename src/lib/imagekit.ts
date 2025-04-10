@@ -23,17 +23,17 @@ interface UploadImageResult {
 }
 
 const uploadImage = async (
-  file: Express.Multer.File,
+  file: File,
   noCrop: boolean
 ): Promise<UploadImageResult> => {
   try {
     let resizedImageBuffer: Buffer;
     if (noCrop) {
-      resizedImageBuffer = await sharp(file.buffer)
+      resizedImageBuffer = await sharp(await file.arrayBuffer())
         .webp({ quality: 80 }) // Convert to WebP format
         .toBuffer();
     } else {
-      resizedImageBuffer = await sharp(file.buffer)
+      resizedImageBuffer = await sharp(await file.arrayBuffer())
         .resize({ width: 600, height: 600, fit: "cover" }) // Resize to 600x600
         .webp({ quality: 80 }) // Convert to WebP format
         .toBuffer();
@@ -41,7 +41,7 @@ const uploadImage = async (
 
     const uploadedImage = (await imagekit.upload({
       file: resizedImageBuffer,
-      fileName: `${Date.now()}-${file.originalname}`,
+      fileName: `${Date.now()}-${file.name}`,
     })) as { url: string; fileId: string };
 
     const url: string = uploadedImage.url;

@@ -19,7 +19,13 @@ const MemberCard = ({
   const router = useRouter();
   const { slug, name, branch, batch, image } = member;
   return (
-    <div onClick={() => router.push(`/${slug}`)} className="member-card">
+    <div
+      onClick={() => {
+        router.push(`/member/${slug}`);
+        window.scrollTo(0, 0);
+      }}
+      className="member-card"
+    >
       <div className="role-icon">
         {member.position !== "member" ? (
           <FaUserTie className="executive" />

@@ -37,4 +37,4 @@ const sendEmail = async (email: string, otp: string) => {
   }
 };
 
-module.exports = sendEmail;
+export default sendEmail;

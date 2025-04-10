@@ -7,7 +7,6 @@ import type {
   RequestedArticlesAndEvents,
   RequestedTask,
   RequestedTopSubmitter,
-  RequestedUser,
 } from "@/types/getServiceTypes";
 import axios from "axios";
 
@@ -51,22 +50,6 @@ const getAllMembers: RequestAllMembersFunctionType = async (
     `/member/all?page=${page}&limit=${limit}&name=${search}&role=${role}&branch=${branch}&position=${position}`
   );
   return response;
-};
-
-const verifyToken = async (): Promise<null | {
-  data: { user: RequestedUser };
-}> => {
-  try {
-    const response = await api.get("/member");
-    return response;
-  } catch {
-    console.log("Error verifying token:");
-    return null;
-  }
-};
-
-const getUser = async (slug: string): Promise<{ data: RequestedUser }> => {
-  return api.get(`/member/${slug}`);
 };
 
 const getTopSubmitters = (): Promise<{ data: RequestedTopSubmitter[] }> => {
@@ -139,8 +122,6 @@ const getAllMessages: RequestAllMessagesFunctionType = async (
 };
 
 export {
-  verifyToken,
-  getUser,
   getAllMembers,
   getTopSubmitters,
   getAllMessages,

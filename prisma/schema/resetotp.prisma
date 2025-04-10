@@ -4,6 +4,6 @@ model resetotps {
     createdAt DateTime @db.Date
     email     String   @unique(map: "email_1")
     expiresAt DateTime @db.Date
-    opt       String
+    otp       String
     token     String?
 }

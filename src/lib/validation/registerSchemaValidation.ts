@@ -16,13 +16,12 @@ export const registerFormSchema = z.object({
     .regex(/[0-9]/, { message: "Password must contain at least one number" }),
   contactNumber: z
     .string()
-    .regex(/^\d{10}$/, { message: "Contact number must be 10 digits" }),
+    .regex(/^\d{11}$/, { message: "Contact number must be 11 digits" }),
   batch: z.string().min(1, { message: "Batch is required" }),
   branch: z.string().min(1, { message: "Please select a branch" }),
   description: z.string().optional(),
   facebookLink: z
     .string()
-    .url({ message: "Please enter a valid URL" })
     .optional()
     .or(z.literal("")),
   reference: z.string().optional(),
