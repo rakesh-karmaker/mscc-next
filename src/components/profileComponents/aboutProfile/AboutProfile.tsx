@@ -7,7 +7,6 @@ import Link from "next/link";
 import { RequestedUser } from "@/types/getServiceTypes";
 import logoutAction from "@/actions/logoutAction";
 import { useUser } from "@/context/userProvider";
-import toast from "react-hot-toast";
 
 const AboutProfile = ({
   data,

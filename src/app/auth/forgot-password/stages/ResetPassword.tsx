@@ -1,8 +1,6 @@
 "use client";
 
 import ForgotPasswordLayout from "@/layouts/ForgotPasswordLayout";
-// import { resetPassword } from "@/services/PostService";
-import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import SubmitBtn from "@/components/UI/SubmitBtn";
 import toast from "react-hot-toast";

@@ -21,10 +21,10 @@ const ForgotPasswordLayout = ({
   stage,
 }: props) => {
   const urls = [
-    <FaLock />,
-    <MdEmail />,
-    <IoKeySharp />,
-    <IoMdCheckmarkCircleOutline />,
+    <FaLock key="lock" />,
+    <MdEmail key="email" />,
+    <IoKeySharp key="key" />,
+    <IoMdCheckmarkCircleOutline key="checkmark" />,
   ];
   return (
     <main className="page-forgot">

@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/prisma";
 import sendEmail from "@/lib/sendEmail";
-import ResetOtp from "@/models/ResetPasswordOtp";
 import generateOTP from "@/utils/generateOTP";
 import generateRandomToken from "@/utils/generateRandomToken";
 import getDate from "@/utils/getDate";

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, useCallback, useRef, useEffect, RefObject } from "react";
 import { CustomToolbar } from "./CustomToolbar";
@@ -8,9 +8,12 @@ import "./Editor.css";
 import katex from "katex";
 import { UseFormRegister } from "react-hook-form";
 
-export default function Editor({ content = "", register }: {
+export default function Editor({
+  content = "",
+  register,
+}: {
   content: string;
-  register: UseFormRegister<any>;
+  register: UseFormRegister<Record<string, unknown>>;
 }) {
   const [showLinkMenu, setShowLinkMenu] = useState(false);
   const [linkUrl, setLinkUrl] = useState("");
@@ -22,23 +25,6 @@ export default function Editor({ content = "", register }: {
   const [editingMathId, setEditingMathId] = useState<string | null>(null);
   const [undoStack, setUndoStack] = useState<string[]>([]);
   const [currentUndoIndex, setCurrentUndoIndex] = useState(-1);
-
-  // Initialize editor with content and ensure proper structure
-  useEffect(() => {
-    if (contentRef.current) {
-      if (content) {
-        contentRef.current.innerHTML = content;
-      } else {
-        // If no initial content, add an empty paragraph
-        contentRef.current.innerHTML = "<p><br></p>";
-      }
-
-      renderAllMath();
-      // Initialize undo stack with initial content
-      setUndoStack([contentRef.current.innerHTML]);
-      setCurrentUndoIndex(0);
-    }
-  }, [content]);
 
   // Load KaTeX CSS
   useEffect(() => {
@@ -243,13 +229,15 @@ export default function Editor({ content = "", register }: {
   ]);
 
   // Add a function to save and restore selection
-  const [savedSelection, setSavedSelection] = useState(null);
+  const [savedSelection, setSavedSelection] = useState<Range | null>(null);
 
   // Add this function to save the current selection
   const saveSelection = useCallback(() => {
     const selection = window.getSelection();
     if (selection && selection.rangeCount > 0) {
-      setSavedSelection(selection.getRangeAt(0).cloneRange() as unknown as null);
+      setSavedSelection(
+        selection.getRangeAt(0).cloneRange() as unknown as null
+      );
     }
   }, []);
 
@@ -278,7 +266,7 @@ export default function Editor({ content = "", register }: {
 
   // Update the math click handler to save selection
   const handleMathClick = useCallback(
-    (type: 'inline' | 'block') => {
+    (type: "inline" | "block") => {
       // Save the current selection before opening the math menu
       saveSelection();
       setEditingMathId(null);
@@ -298,7 +286,9 @@ export default function Editor({ content = "", register }: {
   const handleDoubleClick = useCallback(
     (e: MouseEvent) => {
       const target = e.target;
-      const mathElement = (target as HTMLElement)?.closest("[data-math-formula]");
+      const mathElement = (target as HTMLElement)?.closest(
+        "[data-math-formula]"
+      );
 
       if (mathElement) {
         e.preventDefault();
@@ -368,7 +358,7 @@ export default function Editor({ content = "", register }: {
     try {
       // Simple URL validation - checks if it starts with http:// or https://
       return /^(https?:\/\/|www\.)[^\s]+(\.[^\s]+)+/.test(text);
-    } catch (e) {
+    } catch {
       return false;
     }
   };
@@ -598,6 +588,7 @@ export default function Editor({ content = "", register }: {
       handleUndo,
       saveToUndoStack,
       ensureContentStructure,
+      isContentEmpty,
     ]
   );
   // Add a focus handler to ensure proper structure when the editor gets focus
@@ -608,11 +599,12 @@ export default function Editor({ content = "", register }: {
 
   // Add event listeners
   useEffect(() => {
-    if (contentRef.current) {
-      contentRef.current.addEventListener("dblclick", handleDoubleClick);
-      contentRef.current.addEventListener("paste", handlePaste);
-      contentRef.current.addEventListener("keydown", handleKeyDown);
-      contentRef.current.addEventListener("focus", handleFocus);
+    const currentContentRef = contentRef.current;
+    if (currentContentRef) {
+      currentContentRef.addEventListener("dblclick", handleDoubleClick);
+      currentContentRef.addEventListener("paste", handlePaste);
+      currentContentRef.addEventListener("keydown", handleKeyDown);
+      currentContentRef.addEventListener("focus", handleFocus);
 
       // Ensure proper structure on initial load
       ensureContentStructure();
@@ -621,11 +613,11 @@ export default function Editor({ content = "", register }: {
       renderAllMath();
 
       return () => {
-        if (contentRef.current) {
-          contentRef.current.removeEventListener("dblclick", handleDoubleClick);
-          contentRef.current.removeEventListener("paste", handlePaste);
-          contentRef.current.removeEventListener("keydown", handleKeyDown);
-          contentRef.current.removeEventListener("focus", handleFocus);
+        if (currentContentRef) {
+          currentContentRef.removeEventListener("dblclick", handleDoubleClick);
+          currentContentRef.removeEventListener("paste", handlePaste);
+          currentContentRef.removeEventListener("keydown", handleKeyDown);
+          currentContentRef.removeEventListener("focus", handleFocus);
         }
       };
     }
@@ -636,7 +628,6 @@ export default function Editor({ content = "", register }: {
     handleFocus,
     renderAllMath,
     ensureContentStructure,
-    contentRef,
   ]);
 
   // Re-render math when the editor content changes
@@ -657,6 +648,23 @@ export default function Editor({ content = "", register }: {
       observer.disconnect();
     };
   }, [renderAllMath]);
+
+  // Initialize editor with content and ensure proper structure
+  useEffect(() => {
+    if (contentRef.current) {
+      if (content) {
+        contentRef.current.innerHTML = content;
+      } else {
+        // If no initial content, add an empty paragraph
+        contentRef.current.innerHTML = "<p><br></p>";
+      }
+
+      renderAllMath();
+      // Initialize undo stack with initial content
+      setUndoStack([contentRef.current.innerHTML]);
+      setCurrentUndoIndex(0);
+    }
+  }, [content, renderAllMath]);
 
   return (
     <div className="editor-container" ref={editorRef}>

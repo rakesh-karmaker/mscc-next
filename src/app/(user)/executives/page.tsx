@@ -3,8 +3,8 @@ import ExecutivesContainer from "@/components/ec-components/ExecutivesContainer"
 import "./Executives.css";
 
 export default function ExecutivePage() {
-    let years: string[] = [];
-    for (let executive of executivesData) {
+    const years: string[] = [];
+    for (const executive of executivesData) {
       if (!years.includes(executive.panel)) {
         years.push(executive.panel);
       }

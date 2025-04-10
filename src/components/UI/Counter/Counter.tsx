@@ -8,6 +8,8 @@ const Counter = ({ date }: { date: string }) => {
   const [hours, setHours] = useState([0, 0]);
   const [minutes, setMinutes] = useState([0, 0]);
 
+
+
   useEffect(() => {
     const calculateTimeLeft = () => {
       const diff = Date.parse(date) - Date.now();
@@ -19,28 +21,19 @@ const Counter = ({ date }: { date: string }) => {
             .split("")
             .map(Number)
             .map((num) => Number(String(num).padStart(2, "0")))
-          // Remove this line as it's trying to split a number
         );
         setHours(
-          String(Math.floor(diff / (1000 * 60 * 60 * 24) / (1000 * 60 * 60)))
+          String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
+            .padStart(2, "0")
             .split("")
             .map(Number)
-            .map((num) => Number(String(num).padStart(2, "0")))
-          // String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)))
-          //   .padStart(2, "0")
-          //   .split("")
         );
-
         setMinutes(
-          String(Math.floor(diff % (1000 * 60 * 60)) / (1000 * 60))
+          String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)))
+            .padStart(2, "0")
             .split("")
             .map(Number)
-            .map((num) => Number(String(num).padStart(2, "0")))
-          // String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)))
-          //   .padStart(2, "0")
-          //   .split("")
         );
-        return [days, hours, minutes];
       }
     };
 

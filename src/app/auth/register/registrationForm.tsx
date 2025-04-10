@@ -34,7 +34,7 @@ import { useUser } from "@/context/userProvider";
 
 export default function RegistrationForm() {
   const router = useRouter();
-  const {setUser} = useUser();
+  const { setUser } = useUser();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userImage, setUserImage] = useState<File | null>(null);
@@ -133,7 +133,9 @@ export default function RegistrationForm() {
 
       if (result.success) {
         toast.success("Registration successful!");
-        setUser && setUser(result.user ? result.user : null)
+        if (setUser) {
+          setUser(result.user ? result.user : null);
+        }
         router.push(result.user ? `/member/${result.user.slug}/` : "/");
         reset();
         setUserImage(null);
@@ -151,8 +153,6 @@ export default function RegistrationForm() {
       setIsSubmitting(false);
     }
   };
-
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="user-form">
@@ -381,19 +381,14 @@ export default function RegistrationForm() {
             <p>Already have an account?</p>
             <Link href="/auth/login">Login Now</Link>
           </div>
-          <SubmitBtn
-            isLoading={isSubmitting}
-            pendingText={"Registering"}
-          >
+          <SubmitBtn isLoading={isSubmitting} pendingText={"Registering"}>
             {"Register as a Member"}
           </SubmitBtn>
         </div>
-
       </div>
     </form>
   );
 }
-
 
 const branches = [
   {

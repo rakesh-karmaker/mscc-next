@@ -24,10 +24,12 @@ export default function LoginForm() {
   useEffect(() => {
     if (state?.success) {
       toast.success(state.message);
-      setUser && setUser(state.user ? state.user : null)
+      if (setUser) {
+        setUser(state.user ? state.user : null);
+      }
       router.push(state.user ? `/member/${state.user.slug}/` : "/");
     }
-  }, [state, router]);
+  }, [state, router, setUser]);
 
   return (
     <form action={action} className="login-form auth-form">

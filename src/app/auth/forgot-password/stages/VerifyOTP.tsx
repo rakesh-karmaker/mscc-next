@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import ForgotPasswordLayout from "@/layouts/ForgotPasswordLayout";
-import { useMutation } from "@tanstack/react-query";
-// import { forgotPasswordRequest, verifyOtp } from "@/services/PostService";
 import toast from "react-hot-toast";
 import SubmitBtn from "@/components/UI/SubmitBtn";
 import { verifyEmail, verifyOtp } from "@/actions/forgotPasswordAction";
@@ -67,7 +65,6 @@ const VerifyOTP = ({
       toast.error(res.message as string);
       setError(res.message as string);
     }
-
   };
 
   const resend = async () => {
@@ -99,7 +96,9 @@ const VerifyOTP = ({
                 onPaste={
                   index === 0
                     ? (e: React.ClipboardEvent<HTMLInputElement>) =>
-                        handlePaste(e as any)
+                        handlePaste(
+                          e as unknown as React.FormEvent<ClipboardEvent>
+                        )
                     : undefined
                 } // Attach onPaste to the first input
                 className="otp-input"
@@ -115,7 +114,7 @@ const VerifyOTP = ({
         </SubmitBtn>
 
         <div className="resend">
-          <p>Didn't receive the OTP?</p>
+          <p>Didn&apos;t receive the OTP?</p>
           <button type="button" onClick={resend} disabled={loading}>
             {loading ? "Sending..." : "Resend"}
           </button>

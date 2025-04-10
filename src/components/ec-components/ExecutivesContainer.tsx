@@ -29,9 +29,11 @@ const ExecutivesContainer = ({ years, executivesData }: {
       if (window.innerWidth <= 950) {
         const yearPanels = document.querySelectorAll(".panel-year");
         yearPanels.forEach((yearPanel) => {
-          yearPanel.getAttribute("data-year") === year
-            ? ((yearPanel as HTMLElement).style.order = "-1")
-            : ((yearPanel as HTMLElement).style.order = "0");
+          if (yearPanel.getAttribute("data-year") === year) {
+            (yearPanel as HTMLElement).style.order = "-1";
+          } else {
+            (yearPanel as HTMLElement).style.order = "0";
+          }
         });
         yearsDropdownClick(years);
       }
@@ -55,11 +57,10 @@ const ExecutivesContainer = ({ years, executivesData }: {
       }
     );
 
-    document
-      .querySelectorAll(".executive-member")
-      .forEach((executiveMember) => {
-        observeExecutiveMember.observe(executiveMember);
-      });
+    const executiveMembers = document.querySelectorAll(".executive-member");
+    executiveMembers.forEach((executiveMember) => {
+      observeExecutiveMember.observe(executiveMember);
+    });
 
     return () => {
       observeExecutiveMember.disconnect();  
